@@ -1,10 +1,49 @@
-.restaurant-menu{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-column-gap: 10px;
+.restaurant-menu {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
 }
-.meals-container{
+
+.meals-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 26px;
+    order: 2;
+    padding: 60px 20px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .meals-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .meals-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+    .restaurant-menu {
+        display: flex;
+        flex-flow: row;
+        gap: 0;
+    }
+
+    .meals-container {
+        /* grid-template-columns: repeat(4, 1fr); */
+        order: 1;
+        padding-top: 0px;
+        grid-gap: 20px;
+    }
+
+    .order-list {
+        order: 2;
+        width: 40%;
+    }
 }

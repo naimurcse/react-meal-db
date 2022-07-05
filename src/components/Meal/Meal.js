@@ -7,9 +7,9 @@ const Meal = (props) => {
     return (
         <div className="meal">
             <img src={strMealThumb} alt="" />
-            <h4>{strMeal}</h4>
+            <h3>{strMeal}</h3>
             <p>{strInstructions.slice(0, 100)}</p>
-            <button>Add this Food</button>
+            <button className='btn'>Add this Food</button>
         </div>
     );
 };
