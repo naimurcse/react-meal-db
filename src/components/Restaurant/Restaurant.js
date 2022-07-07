@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Meal from '../Meal/Meal';
 import OrderList from '../OrderList/OrderList';
 import './Restaurant.css';
@@ -26,7 +27,37 @@ const Restaurant = () => {
         Read carefully, give it a try. [ Ki ache jibone]
         if  you need help, let us know in the support session
     */
-    
+    useEffect(()=>{
+        const storedMeal = getStoredCart();
+        const saveOrder = [];
+        
+        for(const id in storedMeal){
+            const addedMeal = meals.find(meal => meal.idMeal === id);
+            if(addedMeal){
+                const quantity = storedMeal[id];
+                addedMeal.quantity = quantity;
+                saveOrder.push(addedMeal);
+            }
+        }
+        setOrders(saveOrder);
+    },[meals])
+
+    const addToCart = meal =>{
+        const exist = orders.find(item => item.idMeal === meal.idMeal);
+        let newOrders =[];
+        if(exist){
+            const rest = orders.filter(item => item.idMeal !== meal.idMeal);
+            exist.quantity = exist.quantity + 1;
+            newOrders =[...rest,exist];
+        }else{
+            meal.quantity = 1;
+            newOrders =[...orders,meal];
+        }
+        setOrders(newOrders);
+        addToDb(meal.idMeal);
+    }
+
+    // console.log(orders);
 
     return (
         <div className="restaurant-menu">
@@ -35,6 +66,7 @@ const Restaurant = () => {
                     meals.map(meal => <Meal
                         key={meal.idMeal}
                         meal={meal}
+                        addToCart={addToCart}
                     ></Meal>)
                 }
             </div>
